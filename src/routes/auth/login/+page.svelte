@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte'
+
 	import { goto } from '$app/navigation'
 	import { resolve } from '$app/paths'
 
@@ -6,6 +8,8 @@
 	let password = $state('')
 	let loading = $state(false)
 	let error = $state('')
+
+	let inputEl: HTMLInputElement
 
 	const handleLogin = async (e: SubmitEvent) => {
 		e.preventDefault()
@@ -32,6 +36,8 @@
 
 		await goto(resolve('/dashboard'))
 	}
+
+	onMount(() => inputEl?.focus())
 </script>
 
 <h1 class="mb-6 text-3xl font-bold">Login</h1>
@@ -44,6 +50,7 @@
 	<div>
 		<label for="email" class="mb-2 block text-sm font-medium">Email</label>
 		<input
+			bind:this={inputEl}
 			id="email"
 			type="email"
 			bind:value={email}

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte'
+
 	import { goto } from '$app/navigation'
 	import { resolve } from '$app/paths'
 
@@ -7,6 +9,8 @@
 	let password = $state('')
 	let loading = $state(false)
 	let error = $state('')
+
+	let inputEl: HTMLInputElement
 
 	const handleRegister = async (e: SubmitEvent) => {
 		e.preventDefault()
@@ -30,6 +34,8 @@
 
 		await goto(resolve('/auth/login'))
 	}
+
+	onMount(() => inputEl?.focus())
 </script>
 
 <h1 class="mb-6 text-3xl font-bold">Register</h1>
@@ -42,6 +48,7 @@
 	<div>
 		<label for="name" class="mb-2 block text-sm font-medium">Nama</label>
 		<input
+			bind:this={inputEl}
 			id="name"
 			type="text"
 			bind:value={name}
