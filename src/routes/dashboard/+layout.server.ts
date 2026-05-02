@@ -4,7 +4,7 @@ export const load = async ({ fetch }) => {
 	const response = await fetch('/api/auth/me')
 
 	if (!response.ok) {
-		throw redirect(302, '/login')
+		throw redirect(302, '/auth/login')
 	}
 
 	const data = await response.json()
